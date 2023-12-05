@@ -6,101 +6,104 @@
  *  * Made in Gelsenkirchen with-&hearts; by Björn Schleyer
  *  *
  *  * @project     fireapi-php-client
- *  * @file        AccountingHandler.php
+ *  * @file        dnsHandler.php
  *  * @author      BSchleyer
  *  * @site        www.schleyer-edv.de
  *  * @date        5.12.2023
- *  * @time        10:2
+ *  * @time        17:51
  *
  */
 
 namespace fireapi\Handlers;
 
-use fireapi\Exception\AssertNotImplemented;
 use fireapi\fireapi;
+use fireapi\Exception\AssertNotImplemented;
 
-class AccountingHandler {
+class dnsHandler {
 
     private $fireapi;
-    public function __construct(fireapi $fireapi)
-    {
+
+    public function __construct(fireapi $fireapi) {
         $this->fireapi = $fireapi;
     }
 
     /**
-     * Get all invoices from your account
+     * Create a new dns record
      *
+     * @param string $domain
+     * @param $type
+     * @param $name
+     * @param $data
      * @return array|string
      * @throws AssertNotImplemented
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getInvoices() {
+    public function addDNSRecords($domain, $type, $name, $data) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
         }
 
-        return $this->fireapi->get('accounting/invoices');
+        return $this->fireapi->put('domain/' . $domain . '/dns/add', [
+            'type' => $type,
+            'name' => $name,
+            'data' => $data
+        ]);
     }
 
     /**
-     * get details of an invoice from your account
+     * Get all DNS records of a domain
      *
-     * @param $invoice_id
+     * @param $domain
      * @return array|string
      * @throws AssertNotImplemented
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getInvoiceDetails($invoice_id) {
+    public function getDNSRecords($domain) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
         }
 
-        return $this->fireapi->get('accounting/invoices/' . $invoice_id);
+        return $this->fireapi->get('domain/' . $domain . '/dns');
     }
 
     /**
-     * Get current invoice calculation from your account
+     * Update a existing DNS record
      *
+     * @param $domain
+     * @param $record_id
+     * @param $data
      * @return array|string
      * @throws AssertNotImplemented
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getCurrentInvoices() {
+    public function updateDNSRecords($domain, $record_id, $data) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
         }
 
-        return $this->fireapi->get('accounting/invoices/current');
+        return $this->fireapi->post('domain/' . $domain . '/dns/edit', [
+            'record_id' => $record_id,
+            'data' => $data
+        ]);
     }
 
     /**
-     * Get all Prices from your account
+     * Delete an existing DNS record
      *
+     * @param $domain
+     * @param $record_id
      * @return array|string
      * @throws AssertNotImplemented
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getPrices() {
+    public function deleteDNSRecords($domain, $record_id) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
         }
 
-        return $this->fireapi->get('accounting/pricings');
-    }
-
-    /**
-     * Get all Sales-Pricings from your account
-     *
-     * @return array|string
-     * @throws AssertNotImplemented
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getSales() {
-        if($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
-        return $this->fireapi->get('accounting/sales');
+        return $this->fireapi->delete('domain/' . $domain . '/dns/remove', [
+            'record_id' => $record_id
+        ]);
     }
 
 }

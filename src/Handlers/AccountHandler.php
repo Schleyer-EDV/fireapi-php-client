@@ -27,6 +27,13 @@ class AccountHandler {
         $this->fireapi = $fireapi;
     }
 
+    /**
+     * Get all api requests for the given account
+     *
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getRequests() {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();

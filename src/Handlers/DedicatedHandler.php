@@ -27,6 +27,13 @@ class DedicatedHandler {
         $this->fireapi = $fireapi;
     }
 
+    /**
+     * Check the availability of the dedicated marketplace
+     *
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getMarketplace() {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -35,6 +42,14 @@ class DedicatedHandler {
         return $this->fireapi->get('dedicated/available');
     }
 
+    /**
+     * Check the availability of the given dedicated identifier
+     *
+     * @param $identifier
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function checkState($identifier) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -43,6 +58,15 @@ class DedicatedHandler {
         return $this->fireapi->get('dedicated/available/' . $identifier);
     }
 
+    /**
+     * Buy a server with the given identifier and configure a webhook
+     *
+     * @param $identifier
+     * @param $webhook
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function buyServer($identifier, $webhook = null) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -58,6 +82,14 @@ class DedicatedHandler {
         ]);
     }
 
+    /**
+     * Get informations about the dedicated with the given identifier
+     *
+     * @param $identifier
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getInformations($identifier) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -66,6 +98,13 @@ class DedicatedHandler {
         return $this->fireapi->get('dedicated/' . $identifier . '/info');
     }
 
+    /**
+     * Get your dedicated server list
+     *
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getList() {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -74,6 +113,14 @@ class DedicatedHandler {
         return $this->fireapi->get('dedicated/list');
     }
 
+    /**
+     * Cancel a dedicated server
+     *
+     * @param $identifier
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function cancel($identifier) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -82,6 +129,14 @@ class DedicatedHandler {
         return $this->fireapi->delete('dedicated/' . $identifier . '/delete');
     }
 
+    /**
+     * Uncancel a dedicated server
+     *
+     * @param $identifier
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function uncancel($identifier) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();

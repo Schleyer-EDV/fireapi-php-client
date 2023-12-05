@@ -21,6 +21,8 @@ use fireapi\Exception\AssertNotImplemented;
 use fireapi\Handlers\AccountHandler;
 use fireapi\Handlers\AccountingHandler;
 use fireapi\Handlers\DedicatedHandler;
+use fireapi\Handlers\dnsHandler;
+use fireapi\Handlers\DomainContactHandler;
 use fireapi\Handlers\DomainHandler;
 use fireapi\Handlers\vmHandler;
 use fireapi\Handlers\vmToolsHandler;
@@ -234,6 +236,8 @@ class fireapi {
     private $vmToolsHandler;
     private $dedicatedHandler;
     private $domainHandler;
+    private $dnsHandler;
+    private $domainContactHandler;
 
     /**
      * @return $accountingHandler
@@ -283,12 +287,33 @@ class fireapi {
      * @return $domainHandler
      */
     public function domain(): DomainHandler {
-        throw new AssertNotImplemented();
-        /*if(!$this->domainHandler) {
+        if(!$this->domainHandler) {
             $this->domainHandler = new DomainHandler($this);
         }
 
-        return $this->domainHandler;*/
+        return $this->domainHandler;
+    }
+
+    /**
+     * @return $dnsHandler
+     */
+    public function dns(): dnsHandler {
+        if(!$this->dnsHandler) {
+            $this->dnsHandler = new dnsHandler($this);
+        }
+
+        return $this->dnsHandler;
+    }
+
+    /**
+     * @return $domainContactHandler
+     */
+    public function domainContact(): DomainContactHandler {
+        if(!$this->domainContactHandler) {
+            $this->domainContactHandler = new DomainContactHandler($this);
+        }
+
+        return $this->domainContactHandler;
     }
 
     /**
