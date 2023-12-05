@@ -13,7 +13,7 @@
  *  * @time        9:10
  *
  */
-namespace Credentials;
+namespace fireapi;
 
 use fireapi\Exception\ParameterException;
 
