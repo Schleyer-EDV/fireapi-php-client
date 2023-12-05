@@ -27,6 +27,14 @@ class vmHandler {
         $this->fireapi = $fireapi;
     }
 
+    /**
+     * Get the status of a given vm
+     *
+     * @param int $vm_id
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getStatus($vm_id) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -35,6 +43,14 @@ class vmHandler {
         return $this->fireapi->get('vm/' . $vm_id . '/status');
     }
 
+    /**
+     * Get installation status of the given vm
+     *
+     * @param int $vm_id
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getInstallStatus($vm_id) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -43,6 +59,15 @@ class vmHandler {
         return $this->fireapi->get('vm/' . $vm_id . '/status/installation');
     }
 
+    /**
+     * Set the power mode of the given vm
+     *
+     * @param int $vm_id
+     * @param string $mode
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function setPower($vm_id, $mode) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -57,6 +82,14 @@ class vmHandler {
         ]);
     }
 
+    /**
+     * Reset the password for the specified vm
+     *
+     * @param int $vm_id
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function resetPassword($vm_id) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -65,6 +98,14 @@ class vmHandler {
         return $this->fireapi->post('vm/' . $vm_id . '/password-reset');
     }
 
+    /**
+     * Delete a vm
+     *
+     * @param int $vm_id
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function deleteVM($vm_id) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -73,6 +114,14 @@ class vmHandler {
         return $this->fireapi->delete('vm/' . $vm_id . '/delete');
     }
 
+    /**
+     * Get the link of the noVNC-Console
+     *
+     * @param int $vm_id
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getNoVNC($vm_id) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -81,6 +130,16 @@ class vmHandler {
         return $this->fireapi->post('vm/' . $vm_id . '/novnc');
     }
 
+    /**
+     * Set the rDNS for a specified ip_address for a given vm
+     *
+     * @param int $vm_id
+     * @param $fqdn
+     * @param $ip_address
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function setRdns($vm_id, $fqdn, $ip_address) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -92,6 +151,14 @@ class vmHandler {
         ]);
     }
 
+    /**
+     * Get the current vm config
+     *
+     * @param int $vm_id
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getVMConfig($vm_id) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -100,6 +167,19 @@ class vmHandler {
         return $this->fireapi->get('vm/' . $vm_id . '/config');
     }
 
+    /**
+     * Update the current VM configuration
+     *
+     * @param int $vm_id
+     * @param int $cores
+     * @param int $mem
+     * @param int $disk
+     * @param int $backup_slots
+     * @param int $network_speed
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function changeVMConfig($vm_id, $cores, $mem, $disk, $backup_slots, $network_speed) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -114,6 +194,21 @@ class vmHandler {
         ]);
     }
 
+    /**
+     * Create a new vm
+     *
+     * @param int $cores
+     * @param int $mem
+     * @param int $disk
+     * @param string $os
+     * @param string $hostsystem
+     * @param int $ips
+     * @param int $backup_slots
+     * @param int $network_speed
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function createVM($cores, $mem, $disk, $os, $hostsystem, $ips, $backup_slots, $network_speed) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
@@ -131,6 +226,15 @@ class vmHandler {
         ]);
     }
 
+    /**
+     * Reinstall a vm
+     *
+     * @param int $vm_id
+     * @param string $os
+     * @return array|string
+     * @throws AssertNotImplemented
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function reinstallVM($vm_id, $os) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
