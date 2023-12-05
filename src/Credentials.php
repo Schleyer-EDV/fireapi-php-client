@@ -54,7 +54,7 @@ class Credentials {
 
     public function __toString() {
         return sprintf(
-            '{Host: %s], [Token: %s]',
+            '[Host: %s], [Token: %s]',
             $this->url,
             $this->token
         );
