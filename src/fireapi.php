@@ -16,7 +16,7 @@
 
 namespace fireapi;
 
-use Credentials\Credentials;
+use fireapi\Credentials;
 use fireapi\Exception\AssertNotImplemented;
 use fireapi\Handlers\AccountHandler;
 use fireapi\Handlers\AccountingHandler;
@@ -122,6 +122,12 @@ class fireapi {
             case 'GET':
                 return $this->getHttpClient()->get($url, [
                     'verify' => false,
+                    'headers'  => [
+                        'Content-Type' => 'application/x-www-form-urlencoded',
+                        'Accept' => '*/*',
+                        'User-Agent' => 'fireapi-php-Client',
+                        'X-FIRE-APIKEY' => $this->apiToken,
+                    ],
                     'query'  => $params,
                 ]);
             case 'POST':
@@ -129,7 +135,7 @@ class fireapi {
                     'verify' => false,
                     'headers'  => [
                         'Content-Type' => 'application/x-www-form-urlencoded',
-                        'Accept' => 'application/json',
+                        'Accept' => '*/*',
                         'User-Agent' => 'fireapi-php-Client',
                         'X-FIRE-APIKEY' => $this->apiToken,
                     ],
