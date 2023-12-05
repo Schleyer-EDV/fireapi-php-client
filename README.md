@@ -24,7 +24,7 @@ Or add this to your `composer.json` file:
 ```json
 {
     "require": {
-        "schleyer-edv/fireapi-php-client": "^1.0"
+        "schleyer-edv/fireapi-php-client": "@stable"
     }
 }
 ```
