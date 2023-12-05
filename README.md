@@ -4,6 +4,7 @@
 
 This **PHP 8.1+** library allows you to communicate with the fireapi of 24fire GmbH.
 
+[![PHP Version Require](http://poser.pugx.org/schleyer-edv/fireapi-php-client/require/php)](https://packagist.org/packages/schleyer-edv/fireapi-php-client)
 [![Latest Stable Version](http://poser.pugx.org/schleyer-edv/fireapi-php-client/v)](https://packagist.org/packages/schleyer-edv/fireapi-php-client)
 [![License](http://poser.pugx.org/schleyer-edv.de/fireapi-php-client/license)](https://packagist.org/packages/schleyer-edv/fireapi-php-client)
 
