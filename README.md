@@ -49,6 +49,6 @@ use fireapi\fireapi;
 $client = new fireapi('API-Token');
 
 // Then you are able to perform a request
-var_dump($client->vm()->status('{vmid}'));
+var_dump($client->vm()->getStatus('{vmid}'));
 ?>
 ```

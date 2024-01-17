@@ -24,4 +24,9 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     public function testExceptionIsThrownIfBadParamsPassed() {
         $fireapi = new fireapi('', false, null);
     }
+
+    public function testgetStatus() {
+        $fireapi = new fireapi('', false, null);
+        return $fireapi->vm()->getStatus('')
+    }
 }

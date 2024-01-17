@@ -215,4 +215,53 @@ class vmToolsHandler {
         return $this->fireapi->get('vm/list/iso');
     }
 
+    /**
+     * Get a List of all abuse reports
+     *
+     * @param int $vm_id
+     * @return array|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getAbuseReports($vm_id) {
+        return $this->fireapi->get('vm/' . $vm_id . '/abuses');
+    }
+
+    /**
+     * Get a List of monitoring measurements#
+     *
+     * @param int $vm_id
+     * @return array|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getMonitoringMeasurements($vm_id) {
+        return $this->fireapi->get('vm/' . $vm_id . '/monitoring/timings');
+    }
+
+    /**
+     * Get a List of monitoring outages
+     *
+     * @param int $vm_id
+     * @return array|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getMonitoringOutages($vm_id) {
+        return $this->fireapi->get('vm/' . $vm_id . '/monitoring/incidences');
+    }
+
+    /**
+     * Change the monitoring settings
+     *
+     * @param int $vm_id
+     * @param boolean $enabled
+     * @param int $port
+     * @return array|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function changeMonitoringSettings($vm_id, $enabled, $port = 22) {
+        return $this->fireapi->post('vm/' . $vm_id . '/monitoring/change', [
+            'enabled' => $enabled,
+            'port' => $port
+        ]);
+    }
+
 }

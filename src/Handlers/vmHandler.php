@@ -205,11 +205,12 @@ class vmHandler {
      * @param int $ips
      * @param int $backup_slots
      * @param int $network_speed
+     * @param null|string $hostname
      * @return array|string
      * @throws AssertNotImplemented
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function createVM($cores, $mem, $disk, $os, $hostsystem, $ips, $backup_slots, $network_speed) {
+    public function createVM($cores, $mem, $disk, $os, $hostsystem, $ips, $backup_slots, $network_speed, $hostname = null) {
         if($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
         }
@@ -222,7 +223,8 @@ class vmHandler {
             'hostsystem' => $hostsystem,
             'ips' => $ips,
             'backup_slots' => $backup_slots,
-            'network_speed' => $network_speed
+            'network_speed' => $network_speed,
+            'hostname' => $hostname
         ]);
     }
 
@@ -241,7 +243,7 @@ class vmHandler {
         }
 
         return $this->fireapi->post('vm/' . $vm_id . '/reinstall', [
-            'os' => $os
+            'os' => $os,
         ]);
     }
 }
