@@ -20,6 +20,7 @@ use fireapi\Exception\ParameterException;
 class Credentials {
 
     private $token;
+    private $sandbox;
     private $url;
 
     /**
