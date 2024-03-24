@@ -191,7 +191,7 @@ class fireapi {
      */
     public function get($actionPath, $params = [])
     {
-        $response = $this->request($actionPath, $params);
+        $response = $this->request($actionPath, $params, 'GET');
 
         return $this->processRequest($response);
     }
