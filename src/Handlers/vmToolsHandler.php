@@ -17,70 +17,59 @@
 namespace fireapi\Handlers;
 
 use fireapi\fireapi;
+use fireapi\Exception\AssertNotImplemented;
 
-class vmToolsHandler {
+class vmToolsHandler
+{
 
     private $fireapi;
 
-    public function __construct(fireapi $fireapi) {
+    public function __construct(fireapi $fireapi)
+    {
         $this->fireapi = $fireapi;
     }
 
     /*
      * ISO section
      */
+    public function setIso($vm_id, $iso)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
 
-    /**
-     * Set the vm a specified iso
-     *
-     * @param int $vm_id
-     * @param $iso
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function setIso($vm_id, $iso) {
         return $this->fireapi->put('vm/' . $vm_id . '/iso', [
             'iso' => $iso
         ]);
     }
 
-    /**
-     * Remove the vm a specified iso
-     *
-     * @param int $vm_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function removeISO($vm_id) {
+    public function removeISO($vm_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->delete('vm/' . $vm_id . '/iso');
     }
 
     /*
      * DDOS section
      */
+    public function getDDOS($vm_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
 
-    /**
-     * get the ddos settings
-     *
-     * @param int $vm_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getDDOS($vm_id) {
         return $this->fireapi->get('vm/' . $vm_id . '/ddos');
     }
 
-    /**
-     * set the ddos settings
-     *
-     * @param int $vm_id
-     * @param $layer4
-     * @param $layer7
-     * @param $ip_address
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function setDDOS($vm_id, $layer4, $layer7, $ip_address) {
+    public function setDDOS($vm_id, $layer4, $layer7, $ip_address)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->post('vm/' . $vm_id . '/ddos', [
             'layer4' => $layer4,
             'layer7' => $layer7,
@@ -91,80 +80,63 @@ class vmToolsHandler {
     /*
      * Backup section
      */
+    public function getBackupList($vm_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
 
-    /**
-     * get all backups of the vm
-     *
-     * @param int $vm_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getBackupList($vm_id) {
         return $this->fireapi->get('vm/' . $vm_id . '/backup/list');
     }
 
-    /**
-     * create a new backup of the given vm
-     *
-     * @param int $vm_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function createBackup($vm_id) {
+    public function createBackup($vm_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->post('vm/' . $vm_id . '/backup/create');
     }
 
-    /**
-     * get the status of the backup, where creating from a given vm
-     *
-     * @param int $vm_id
-     * @param $backup_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getBackupStatus($vm_id, $backup_id) {
+    public function getBackupStatus($vm_id, $backup_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->get('vm/' . $vm_id . '/backup/create/status', [
             'backup_id' => $backup_id
         ]);
     }
 
-    /**
-     * restore a backup for the given vm
-     *
-     * @param int $vm_id
-     * @param $backup_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function restoreBackup($vm_id, $backup_id) {
+    public function restoreBackup($vm_id, $backup_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->post('vm/' . $vm_id . '/backup/restore', [
             'backup_id' => $backup_id
         ]);
     }
 
-    /**
-     * status of a restore backup
-     *
-     * @param int $vm_id
-     * @param $backup_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function restoreBackupStatus($vm_id, $backup_id) {
+    public function restoreBackupStatus($vm_id, $backup_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->post('vm/' . $vm_id . '/backup/restore/status', [
             'backup_id' => $backup_id
         ]);
     }
 
-    /**
-     * Delete a backup from the given vm
-     *
-     * @param int $vm_id
-     * @param $backup_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function deleteBackup($vm_id, $backup_id) {
+    public function deleteBackup($vm_id, $backup_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->delete('vm/' . $vm_id . '/backup/delete', [
             'backup_id' => $backup_id
         ]);
@@ -173,95 +145,83 @@ class vmToolsHandler {
     /*
      * List section
      */
+    public function getAllVMs()
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
 
-    /**
-     * get all vms from your account
-     *
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getAllVMs() {
         return $this->fireapi->get('vm/list');
     }
 
-    /**
-     * Get all Hostsystems available for vm creation
-     * (with information, example hardware, etc.)
-     *
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getHosts() {
+    public function getHosts()
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->get('vm/list/hosts');
     }
 
-    /**
-     * Get a List of all available os
-     *
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getOSList() {
+    public function getOSList()
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->get('vm/list/os');
     }
 
-    /**
-     * Get a List of all available iso files
-     *
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getISOList() {
+    public function getISOList()
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->get('vm/list/iso');
     }
 
-    /**
-     * Get a List of all abuse reports
-     *
-     * @param int $vm_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+    /*
+     * Monitoring section
      */
-    public function getAbuseReports($vm_id) {
-        return $this->fireapi->get('vm/' . $vm_id . '/abuses');
+
+    public function changeMonitoring($vm_id, $enabled, $port)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
+        return $this->fireapi->post('vm/' . $vm_id . '/monitoring/change', ['enabled' => $enabled, 'port' => $port]);
     }
 
-    /**
-     * Get a List of monitoring measurements#
-     *
-     * @param int $vm_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getMonitoringMeasurements($vm_id) {
+    public function getTimings($vm_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->get('vm/' . $vm_id . '/monitoring/timings');
     }
 
-    /**
-     * Get a List of monitoring outages
-     *
-     * @param int $vm_id
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getMonitoringOutages($vm_id) {
+    public function getIncidents($vm_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
         return $this->fireapi->get('vm/' . $vm_id . '/monitoring/incidences');
     }
 
-    /**
-     * Change the monitoring settings
-     *
-     * @param int $vm_id
-     * @param boolean $enabled
-     * @param int $port
-     * @return array|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+    /*
+     * Abuse section
      */
-    public function changeMonitoringSettings($vm_id, $enabled, $port = 22) {
-        return $this->fireapi->post('vm/' . $vm_id . '/monitoring/change', [
-            'enabled' => $enabled,
-            'port' => $port
-        ]);
+    public function getAbuses($vm_id)
+    {
+        if ($this->fireapi->isSandbox() === true) {
+            throw new AssertNotImplemented();
+        }
+
+        return $this->fireapi->get('vm/' . $vm_id . '/abuses');
     }
 
 }

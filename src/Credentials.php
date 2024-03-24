@@ -13,14 +13,15 @@
  *  * @time        9:10
  *
  */
-namespace fireapi;
+
+namespace Credentials;
 
 use fireapi\Exception\ParameterException;
 
-class Credentials {
+class Credentials
+{
 
     private $token;
-    private $sandbox;
     private $url;
 
     /**
@@ -29,9 +30,10 @@ class Credentials {
      * @param string $token
      * @param bool $sandbox
      */
-    public function __construct(string $token, bool $sandbox = false) {
+    public function __construct(string $token, bool $sandbox = false)
+    {
 
-        if(!is_string($token)) {
+        if (!is_string($token)) {
             throw new ParameterException('invalid token');
         }
 
@@ -53,9 +55,10 @@ class Credentials {
         }
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return sprintf(
-            '[Host: %s], [Token: %s]',
+            '{Host: %s], [Token: %s]',
             $this->url,
             $this->token
         );
@@ -64,21 +67,24 @@ class Credentials {
     /**
      * @return string
      */
-    public function getUrl(): string {
+    public function getUrl(): string
+    {
         return $this->url;
     }
 
     /**
      * @return string
      */
-    public function getToken(): string {
+    public function getToken(): string
+    {
         return $this->token;
     }
 
     /**
      * @return bool
      */
-    public function isSandbox(): bool {
+    public function isSandbox(): bool
+    {
         return $this->sandbox;
     }
 

@@ -1,25 +1,26 @@
 <?php
 /*
  * *************************************************************************
- *  * Copyright 2006-2023 (C) Björn Schleyer, Schleyer-EDV - All rights reserved.
+ *  * Copyright 2006-2024 (C) Björn Schleyer, Schleyer-EDV - All rights reserved.
  *  *
  *  * Made in Gelsenkirchen with-&hearts; by Björn Schleyer
  *  *
- *  * @project     fireapi-php-client
- *  * @file        AccountingHandler.php
+ *  * @project     24fire-php-client
+ *  * @file        ipHandler.php
  *  * @author      BSchleyer
  *  * @site        www.schleyer-edv.de
- *  * @date        5.12.2023
- *  * @time        10:2
- *
+ *  * @date        24.3.2024
+ *  * @time        9:57
+ *  **************************************************************************
  */
+
 
 namespace fireapi\Handlers;
 
 use fireapi\Exception\AssertNotImplemented;
 use fireapi\fireapi;
 
-class AccountingHandler
+class ipHandler
 {
 
     private $fireapi;
@@ -29,49 +30,40 @@ class AccountingHandler
         $this->fireapi = $fireapi;
     }
 
-    public function getInvoices()
+    public function availableSubnet()
     {
         if ($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
         }
 
-        return $this->fireapi->get('accounting/invoices');
+        return $this->fireapi->get('ip/available');
     }
 
-    public function getInvoiceDetails($invoice_id)
+    public function buySubnet($net_id)
     {
         if ($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
         }
 
-        return $this->fireapi->get('accounting/invoices/' . $invoice_id);
+        return $this->fireapi->post('ip/purchase', ['netID' => $net_id]);
     }
 
-    public function getCurrentInvoices()
+    public function listSubnet()
     {
         if ($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
         }
 
-        return $this->fireapi->get('accounting/invoices/current');
+        return $this->fireapi->get('ip/list');
     }
 
-    public function getPrices()
+    public function cancelSubnet($net_id)
     {
         if ($this->fireapi->isSandbox() === true) {
             throw new AssertNotImplemented();
         }
 
-        return $this->fireapi->get('accounting/pricings');
-    }
-
-    public function getSales()
-    {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
-        return $this->fireapi->get('accounting/sales');
+        return $this->fireapi->delete('ip/delete', ['netID' => $net_id]);
     }
 
 }

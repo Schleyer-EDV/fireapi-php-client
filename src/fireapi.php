@@ -16,14 +16,13 @@
 
 namespace fireapi;
 
-use fireapi\Credentials;
+use Credentials\Credentials;
 use fireapi\Exception\AssertNotImplemented;
 use fireapi\Handlers\AccountHandler;
 use fireapi\Handlers\AccountingHandler;
 use fireapi\Handlers\DedicatedHandler;
-use fireapi\Handlers\dnsHandler;
-use fireapi\Handlers\DomainContactHandler;
 use fireapi\Handlers\DomainHandler;
+use fireapi\Handlers\ipHandler;
 use fireapi\Handlers\vmHandler;
 use fireapi\Handlers\vmToolsHandler;
 use GuzzleHttp\Client;
@@ -31,7 +30,8 @@ use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 use fireapi\Exception\ParameterException;
 
-class fireapi {
+class fireapi
+{
 
     private $httpClient;
     private $credentials;
@@ -41,11 +41,12 @@ class fireapi {
     /**
      * fireapi constructor
      *
-     * @param   string      $token          API-Token for all requests
-     * @param   bool        $sandbox        Enables the sandbox mode
-     * @param   null|string $httpClient     Set the http client
+     * @param string $token API-Token for all requests
+     * @param bool $sandbox Enables the sandbox mode
+     * @param null|string $httpClient Set the http client
      */
-    public function __construct(string $token, bool $sandbox = false, $httpClient = null) {
+    public function __construct(string $token, bool $sandbox = false, $httpClient = null)
+    {
         $this->apiToken = $token;
         $this->sandbox = $sandbox;
         $this->setHttpClient($httpClient);
@@ -55,7 +56,8 @@ class fireapi {
     /**
      * @param $httpClient Client|null
      */
-    public function setHttpClient(Client $httpClient = null) {
+    public function setHttpClient(Client $httpClient = null)
+    {
         $this->httpClient = $httpClient ?: new Client([
             'allow_redirects' => false,
             'follow_redirects' => false,
@@ -64,8 +66,9 @@ class fireapi {
         ]);
     }
 
-    public function setCredentials($credentials, $sandbox) {
-        if(!$credentials instanceof Credentials) {
+    public function setCredentials($credentials, $sandbox)
+    {
+        if (!$credentials instanceof Credentials) {
             $credentials = new Credentials($credentials, $sandbox);
         }
 
@@ -75,35 +78,39 @@ class fireapi {
     /**
      * @return Client
      */
-    public function getHttpClient(): Client {
+    public function getHttpClient(): Client
+    {
         return $this->httpClient;
     }
 
     /**
      * @return string
      */
-    public function getToken(): string {
+    public function getToken(): string
+    {
         return $this->token;
     }
 
     /**
      * @return bool
      */
-    public function isSandbox(): bool {
+    public function isSandbox(): bool
+    {
         return $this->sandbox;
     }
 
     /**
      * @return Credentials
      */
-    private function getCredentials(): Credentials {
+    private function getCredentials(): Credentials
+    {
         return $this->credentials;
     }
 
     /**
-     * @param   string    $actionPath       The resource path you want to request, see more at the documentation.
-     * @param   array     $params           Array filled with request params
-     * @param   string    $method           HTTP method used in the request
+     * @param string $actionPath The resource path you want to request, see more at the documentation.
+     * @param array $params Array filled with request params
+     * @param string $method HTTP method used in the request
      *
      * @return  ResponseInterface
      * @throws  GuzzleException
@@ -124,46 +131,40 @@ class fireapi {
             case 'GET':
                 return $this->getHttpClient()->get($url, [
                     'verify' => false,
-                    'headers'  => [
-                        'Content-Type' => 'application/x-www-form-urlencoded',
-                        'Accept' => '*/*',
-                        'User-Agent' => 'fireapi-php-Client',
-                        'X-FIRE-APIKEY' => $this->apiToken,
-                    ],
-                    'query'  => $params,
+                    'query' => $params,
                 ]);
             case 'POST':
                 return $this->getHttpClient()->post($url, [
                     'verify' => false,
-                    'headers'  => [
+                    'headers' => [
                         'Content-Type' => 'application/x-www-form-urlencoded',
-                        'Accept' => '*/*',
+                        'Accept' => 'application/json',
                         'User-Agent' => 'fireapi-php-Client',
                         'X-FIRE-APIKEY' => $this->apiToken,
                     ],
-                    'form_params'   => $params,
+                    'form_params' => $params,
                 ]);
             case 'PUT':
                 return $this->getHttpClient()->put($url, [
                     'verify' => false,
-                    'headers'  => [
+                    'headers' => [
                         'Content-Type' => 'application/x-www-form-urlencoded',
                         'Accept' => 'application/json',
                         'User-Agent' => 'fireapi-php-Client',
                         'X-FIRE-APIKEY' => $this->apiToken,
                     ],
-                    'form_params'   => $params,
+                    'form_params' => $params,
                 ]);
             case 'DELETE':
                 return $this->getHttpClient()->delete($url, [
                     'verify' => false,
-                    'headers'  => [
+                    'headers' => [
                         'Content-Type' => 'application/x-www-form-urlencoded',
                         'Accept' => 'application/json',
                         'User-Agent' => 'fireapi-php-Client',
                         'X-FIRE-APIKEY' => $this->apiToken,
                     ],
-                    'form_params'   => $params,
+                    'form_params' => $params,
                 ]);
             default:
                 throw new ParameterException('Wrong HTTP method passed');
@@ -236,14 +237,14 @@ class fireapi {
     private $vmToolsHandler;
     private $dedicatedHandler;
     private $domainHandler;
-    private $dnsHandler;
-    private $domainContactHandler;
+    private $ipHandler;
 
     /**
      * @return $accountingHandler
      */
-    public function accounting(): AccountingHandler {
-        if(!$this->accountingHandler) {
+    public function accounting(): AccountingHandler
+    {
+        if (!$this->accountingHandler) {
             $this->accountingHandler = new AccountingHandler($this);
         }
 
@@ -253,8 +254,9 @@ class fireapi {
     /**
      * @return $accountHandler
      */
-    public function account(): AccountHandler {
-        if(!$this->accountHandler) {
+    public function account(): AccountHandler
+    {
+        if (!$this->accountHandler) {
             $this->accountHandler = new AccountHandler($this);
         }
 
@@ -264,8 +266,9 @@ class fireapi {
     /**
      * @return $vmHandler
      */
-    public function vm(): vmHandler {
-        if(!$this->vmHandler) {
+    public function vm(): vmHandler
+    {
+        if (!$this->vmHandler) {
             $this->vmHandler = new vmHandler($this);
         }
 
@@ -275,8 +278,9 @@ class fireapi {
     /**
      * @return $vmToolsHandler
      */
-    public function vmTools(): vmToolsHandler {
-        if(!$this->vmToolsHandler) {
+    public function vmTools(): vmToolsHandler
+    {
+        if (!$this->vmToolsHandler) {
             $this->vmToolsHandler = new vmToolsHandler($this);
         }
 
@@ -286,44 +290,41 @@ class fireapi {
     /**
      * @return $domainHandler
      */
-    public function domain(): DomainHandler {
-        if(!$this->domainHandler) {
+    public function domain(): DomainHandler
+    {
+        throw new AssertNotImplemented();
+        /*if(!$this->domainHandler) {
             $this->domainHandler = new DomainHandler($this);
         }
 
-        return $this->domainHandler;
-    }
-
-    /**
-     * @return $dnsHandler
-     */
-    public function dns(): dnsHandler {
-        if(!$this->dnsHandler) {
-            $this->dnsHandler = new dnsHandler($this);
-        }
-
-        return $this->dnsHandler;
-    }
-
-    /**
-     * @return $domainContactHandler
-     */
-    public function domainContact(): DomainContactHandler {
-        if(!$this->domainContactHandler) {
-            $this->domainContactHandler = new DomainContactHandler($this);
-        }
-
-        return $this->domainContactHandler;
+        return $this->domainHandler;*/
     }
 
     /**
      * @return $dedicatedHandler
      */
-    public function dedicated(): DedicatedHandler {
-        if(!$this->dedicatedHandler) {
+    public function dedicated(): DedicatedHandler
+    {
+        if (!$this->dedicatedHandler) {
             $this->dedicatedHandler = new DedicatedHandler($this);
         }
 
         return $this->dedicatedHandler;
     }
+
+    /**
+     * @return $ipHandler
+     */
+    public function ip(): ipHandler
+    {
+        if (!$this->ipHandler) {
+            $this->ipHandler = new ipHandler($this);
+        }
+
+        return $this->ipHandler;
+    }
+
+
+
+
 }
