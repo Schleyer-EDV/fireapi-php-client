@@ -14,7 +14,7 @@
  *
  */
 
-namespace Credentials;
+namespace fireapi;
 
 use fireapi\Exception\ParameterException;
 
