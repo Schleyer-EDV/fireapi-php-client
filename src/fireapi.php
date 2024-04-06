@@ -88,7 +88,7 @@ class fireapi
      */
     public function getToken(): string
     {
-        return $this->token;
+        return $this->apiToken;
     }
 
     /**
