@@ -16,7 +16,7 @@
 
 namespace fireapi;
 
-use Credentials\Credentials;
+use fireapi\Credentials;
 use fireapi\Exception\AssertNotImplemented;
 use fireapi\Handlers\AccountHandler;
 use fireapi\Handlers\AccountingHandler;
