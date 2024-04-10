@@ -46,7 +46,7 @@ class Credentials
                 break;
             case true:
                 $this->sandbox = true;
-                $this->url = '';
+                $this->url = 'https://sandbox.fireapi.de/';
                 break;
             default:
                 $this->sandbox = false;
