@@ -32,28 +32,16 @@ class vmHandler
 
     public function getStatus($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/' . $vm_id . '/status');
     }
 
     public function getInstallStatus($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/' . $vm_id . '/status/installation');
     }
 
     public function setPower($vm_id, $mode)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         if ($mode != 'start' || 'stop' || 'restart') {
             throw new InvalidArgumentException('Invalid power mode specified! Example: start, stop, restart');
         }
@@ -65,37 +53,21 @@ class vmHandler
 
     public function resetPassword($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/password-reset');
     }
 
     public function deleteVM($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->delete('vm/' . $vm_id . '/delete');
     }
 
     public function getNoVNC($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/novnc');
     }
 
     public function setRdns($vm_id, $fqdn, $ip_address)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/rdns', [
             'domain' => $fqdn,
             'ip_address' => $ip_address
@@ -104,19 +76,11 @@ class vmHandler
 
     public function getVMConfig($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/' . $vm_id . '/config');
     }
 
     public function changeVMConfig($vm_id, $cores, $mem, $disk, $backup_slots, $network_speed, $allowFallbackIPs = false)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/change', [
             'cores' => $cores,
             'mem' => $mem,
@@ -129,10 +93,6 @@ class vmHandler
 
     public function createVM($cores, $mem, $disk, $os, $hostsystem, $ips, $backup_slots, $network_speed, $allowFallbackIPs = false)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->put('vm/create', [
             'cores' => $cores,
             'mem' => $mem,
@@ -148,10 +108,6 @@ class vmHandler
 
     public function reinstallVM($vm_id, $os)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/reinstall', [
             'os' => $os
         ]);

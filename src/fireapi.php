@@ -16,7 +16,7 @@
 
 namespace fireapi;
 
-use Credentials\Credentials;
+use fireapi\Credentials;
 use fireapi\Exception\AssertNotImplemented;
 use fireapi\Handlers\AccountHandler;
 use fireapi\Handlers\AccountingHandler;
@@ -88,7 +88,7 @@ class fireapi
      */
     public function getToken(): string
     {
-        return $this->token;
+        return $this->apiToken;
     }
 
     /**
@@ -178,7 +178,9 @@ class fireapi
      */
     private function processRequest(ResponseInterface $response)
     {
-        $response = $response->getBody()->__toString();
+        //$response = $response->getBody()->__toString();
+        $response = $response->getBody();
+
         $result = json_decode($response);
         if (json_last_error() == JSON_ERROR_NONE) {
             return $result;
