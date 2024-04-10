@@ -34,10 +34,6 @@ class vmToolsHandler
      */
     public function setIso($vm_id, $iso)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->put('vm/' . $vm_id . '/iso', [
             'iso' => $iso
         ]);
@@ -45,10 +41,6 @@ class vmToolsHandler
 
     public function removeISO($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->delete('vm/' . $vm_id . '/iso');
     }
 
@@ -57,19 +49,11 @@ class vmToolsHandler
      */
     public function getDDOS($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/' . $vm_id . '/ddos');
     }
 
     public function setDDOS($vm_id, $layer4, $layer7, $ip_address)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/ddos', [
             'layer4' => $layer4,
             'layer7' => $layer7,
@@ -82,28 +66,16 @@ class vmToolsHandler
      */
     public function getBackupList($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/' . $vm_id . '/backup/list');
     }
 
     public function createBackup($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/backup/create');
     }
 
     public function getBackupStatus($vm_id, $backup_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/' . $vm_id . '/backup/create/status', [
             'backup_id' => $backup_id
         ]);
@@ -111,10 +83,6 @@ class vmToolsHandler
 
     public function restoreBackup($vm_id, $backup_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/backup/restore', [
             'backup_id' => $backup_id
         ]);
@@ -122,10 +90,6 @@ class vmToolsHandler
 
     public function restoreBackupStatus($vm_id, $backup_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/backup/restore/status', [
             'backup_id' => $backup_id
         ]);
@@ -133,10 +97,6 @@ class vmToolsHandler
 
     public function deleteBackup($vm_id, $backup_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->delete('vm/' . $vm_id . '/backup/delete', [
             'backup_id' => $backup_id
         ]);
@@ -147,37 +107,21 @@ class vmToolsHandler
      */
     public function getAllVMs()
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/list');
     }
 
     public function getHosts()
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/list/hosts');
     }
 
     public function getOSList()
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/list/os');
     }
 
     public function getISOList()
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/list/iso');
     }
 
@@ -187,28 +131,16 @@ class vmToolsHandler
 
     public function changeMonitoring($vm_id, $enabled, $port)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->post('vm/' . $vm_id . '/monitoring/change', ['enabled' => $enabled, 'port' => $port]);
     }
 
     public function getTimings($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/' . $vm_id . '/monitoring/timings');
     }
 
     public function getIncidents($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/' . $vm_id . '/monitoring/incidences');
     }
 
@@ -217,10 +149,6 @@ class vmToolsHandler
      */
     public function getAbuses($vm_id)
     {
-        if ($this->fireapi->isSandbox() === true) {
-            throw new AssertNotImplemented();
-        }
-
         return $this->fireapi->get('vm/' . $vm_id . '/abuses');
     }
 
