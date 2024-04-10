@@ -178,7 +178,9 @@ class fireapi
      */
     private function processRequest(ResponseInterface $response)
     {
-        $response = $response->getBody()->__toString();
+        //$response = $response->getBody()->__toString();
+        $response = $response->getBody();
+
         $result = json_decode($response);
         if (json_last_error() == JSON_ERROR_NONE) {
             return $result;
