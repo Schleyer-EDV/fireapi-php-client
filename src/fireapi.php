@@ -125,8 +125,6 @@ class fireapi
             throw new ParameterException();
         }
 
-        $params['X-FIRE-APIKEY'] = $this->apiToken;
-
         switch ($method) {
             case 'GET':
                 return $this->getHttpClient()->get($url, [
@@ -178,8 +176,9 @@ class fireapi
      */
     private function processRequest(ResponseInterface $response)
     {
-        //$response = $response->getBody()->__toString();
-        $response = $response->getBody();
+        if(!is_string($response)) {
+            $response = $response->getBody()->__toString();
+        }
 
         $result = json_decode($response);
         if (json_last_error() == JSON_ERROR_NONE) {

@@ -91,7 +91,7 @@ class vmHandler
         ]);
     }
 
-    public function createVM($cores, $mem, $disk, $os, $hostsystem, $ips, $backup_slots, $network_speed, $allowFallbackIPs = false)
+    public function createVM($cores, $mem, $disk, $os, $hostsystem, $ips, $backup_slots, $network_speed, $allowFallbackIPs = false, $hostname = null)
     {
         return $this->fireapi->put('vm/create', [
             'cores' => $cores,
@@ -102,7 +102,8 @@ class vmHandler
             'ips' => $ips,
             'backup_slots' => $backup_slots,
             'network_speed' => $network_speed,
-            'allowFallbackIPs' => $allowFallbackIPs
+            'allowFallbackIPs' => $allowFallbackIPs,
+            'hostname' => $hostname
         ]);
     }
 
