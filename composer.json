@@ -1,6 +1,6 @@
 {
   "name": "schleyer-edv/fireapi-php-client",
-  "description": "A full-featured implementation of fireapi",
+  "description": "A full-featured implementation of the fireapi of 24fire GmbH",
   "license": "MIT",
   "type": "library",
   "keywords": ["reselling", "24fire", "fireapi", "RESTful-API", "KVM", "Dedicated"],
