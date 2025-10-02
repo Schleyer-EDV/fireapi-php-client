@@ -129,6 +129,11 @@ class fireapi
             case 'GET':
                 return $this->getHttpClient()->get($url, [
                     'verify' => false,
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'User-Agent' => 'fireapi-php-Client',
+                        'X-FIRE-APIKEY' => $this->apiToken,
+                    ],
                     'query' => $params,
                 ]);
             case 'POST':
