@@ -1,5 +1,5 @@
 {
-  "name": "schleyer-edv/fireapi-php-client",
+  "name": "elevenzz/fireapi-php-client",
   "description": "A full-featured implementation of the fireapi of 24fire GmbH",
   "license": "MIT",
   "type": "library",
