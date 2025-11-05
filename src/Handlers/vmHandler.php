@@ -42,7 +42,7 @@ class vmHandler
 
     public function setPower($vm_id, $mode)
     {
-        if ($mode != 'start' || 'stop' || 'restart') {
+        if (!in_array($mode, ['start', 'stop', 'restart'], true)) {
             throw new InvalidArgumentException('Invalid power mode specified! Example: start, stop, restart');
         }
 
