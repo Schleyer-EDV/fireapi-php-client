@@ -69,9 +69,11 @@ class vmToolsHandler
         return $this->fireapi->get('vm/' . $vm_id . '/backup/list');
     }
 
-    public function createBackup($vm_id)
+    public function createBackup($vm_id, $description)
     {
-        return $this->fireapi->post('vm/' . $vm_id . '/backup/create');
+        return $this->fireapi->post('vm/' . $vm_id . '/backup/create', [
+            'description' => $description
+        ]);
     }
 
     public function getBackupStatus($vm_id, $backup_id)
@@ -152,4 +154,97 @@ class vmToolsHandler
         return $this->fireapi->get('vm/' . $vm_id . '/abuses');
     }
 
+    /*
+     * Traffic section
+     */
+    public function getTrafficUsage($vm_id)
+    {
+        return $this->fireapi->get('vm/' . $vm_id . '/traffic/current');
+    }
+
+    public function getTrafficLog($vm_id)
+    {
+        return $this->fireapi->post('vm/' . $vm_id . '/traffic/current/log');
+    }
+
+    public function getTrafficLogChart($vm_id, array $parameter, $size = '900x300')
+    {
+        return $this->fireapi->post('vm/' . $vm_id . '/traffic/chart', [
+            'type' => $parameter['type'],
+            'summary' => $parameter['summery'],
+            'output' => $parameter['output'],
+            'dataset_in_label' => (string) $parameter['dataset_in_label'],
+            'dataset_out_label' => (string)  $parameter['dataset_out_label'],
+            'dataset_in_color' => (string) $parameter['dataset_in_color'],
+            'dataset_out_color' => (string) $parameter['dataset_out_color'],
+            'axes_y_label' => (string) $parameter['axes_y_label'],
+            'datapoints' => (int) $parameter['datapoints'],
+            'size' => (string) $size
+        ]);
+    }
+
+    public function getTrafficAddons($vm_id)
+    {
+        return $this->fireapi->get('vm/' . $vm_id . '/traffic/addons');
+    }
+
+    public function buyTrafficAddon($vm_id, $addon)
+    {
+        return $this->fireapi->post('vm/' . $vm_id . '/traffic/addons/buy', [
+            'addon' => $addon
+        ]);
+    }
+
+    /*
+     * SSH-key section
+     */
+    public function getAllSSHKeys($vm_id)
+    {
+        return $this->fireapi->get('vm/' . $vm_id . '/sshkey/list');
+    }
+
+    public function generateSSHKey($vm_id, $displayname)
+    {
+        return $this->fireapi->post('vm/' . $vm_id . '/sshkey/generate', [
+            'displayname' => $displayname
+        ]);
+    }
+
+    public function loadSSHKey($vm_id, $public_key, $displayname)
+    {
+        return $this->fireapi->post('vm/' . $vm_id . '/sshkey/upload', [
+            'public_key' => $public_key,
+            'displayname' => $displayname
+        ]);
+    }
+
+    public function removeSSHKey($vm_id, $key_id)
+    {
+        return $this->fireapi->delete('vm/' . $vm_id . '/sshkey/remove', [
+            'key_id' => $key_id
+        ]);
+    }
+
+    /*
+     * rDNS section
+     */
+    public function getAllRDNS($vm_id)
+    {
+        return $this->fireapi->get('vm/' . $vm_id . '/rdns/list');
+    }
+
+    public function setRDNS($vm_id, $ip_address, $ptr, $note = null)
+    {
+        return $this->fireapi->put('vm/' . $vm_id . '/rdns/create', [
+            'ip_address' => $ip_address,
+            'ptr' => $ptr,
+            'note' => $note
+        ]);
+    }
+
+    public function deleteRDNS($vm_id, $ip_address) {
+        return $this->fireapi->delete('vm/' . $vm_id . '/rdns/delete', [
+            'ip_address' => $ip_address
+        ]);
+    }
 }
