@@ -35,6 +35,10 @@ class AccountHandler
             throw new AssertNotImplemented();
         }
 
-        return $this->fireapi->get('account/requests');
+        return $this->fireapi->post('account/requests');
+    }
+
+    public function getOTP() {
+        return $this->fireapi->post('account/otp');
     }
 }
