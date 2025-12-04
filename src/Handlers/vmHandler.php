@@ -113,4 +113,9 @@ class vmHandler
             'os' => $os
         ]);
     }
+
+    public function getNetworkVM($vm_id)
+    {
+        return $this->fireapi->get('vm/' . $vm_id . '/network');
+    }
 }
