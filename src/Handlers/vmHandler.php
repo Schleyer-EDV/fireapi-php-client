@@ -66,32 +66,25 @@ class vmHandler
         return $this->fireapi->post('vm/' . $vm_id . '/novnc');
     }
 
-    public function setRdns($vm_id, $fqdn, $ip_address)
-    {
-        return $this->fireapi->post('vm/' . $vm_id . '/rdns', [
-            'domain' => $fqdn,
-            'ip_address' => $ip_address
-        ]);
-    }
-
     public function getVMConfig($vm_id)
     {
         return $this->fireapi->get('vm/' . $vm_id . '/config');
     }
 
-    public function changeVMConfig($vm_id, $cores, $mem, $disk, $backup_slots, $network_speed, $allowFallbackIPs = false)
+    public function changeVMConfig($vm_id, $cores, $mem, $disk, $storage, $backup_slots, $network_speed, $allowFallbackIPs = false)
     {
         return $this->fireapi->post('vm/' . $vm_id . '/change', [
             'cores' => $cores,
             'mem' => $mem,
             'disk' => $disk,
+            'storage' => $storage,
             'backup_slots' => $backup_slots,
             'network_speed' => $network_speed,
             'allowFallbackIPs' => $allowFallbackIPs
         ]);
     }
 
-    public function createVM($cores, $mem, $disk, $os, $hostsystem, $ips, $backup_slots, $network_speed, $allowFallbackIPs = false, $hostname = null)
+    public function createVM($cores, $mem, $disk, $os, $hostsystem, $ips, $backup_slots, $network_speed, $hostname = null, $storage, $ssh_key = null, $ssh_key_displayname = null, $allowFallbackIPs = false, $default_ptr = null)
     {
         return $this->fireapi->put('vm/create', [
             'cores' => $cores,
@@ -102,8 +95,12 @@ class vmHandler
             'ips' => $ips,
             'backup_slots' => $backup_slots,
             'network_speed' => $network_speed,
+            'hostname' => $hostname,
+            'storage' => $storage,
+            'ssh_key' => $ssh_key,
+            'ssh_key_displayname' => $ssh_key_displayname,
+            'default_ptr' => $default_ptr,
             'allowFallbackIPs' => $allowFallbackIPs,
-            'hostname' => $hostname
         ]);
     }
 
