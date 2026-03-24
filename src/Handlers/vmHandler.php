@@ -100,7 +100,7 @@ class vmHandler
             'ssh_key' => $ssh_key,
             'ssh_key_displayname' => $ssh_key_displayname,
             'default_ptr' => $default_ptr,
-            'allowFallbackIPs' => $allowFallbackIPs,
+            'allowFallbackIPs' => $allowFallbackIPs === true ? 'true' : 'false',  // <-- fix hier
         ]);
     }
 
